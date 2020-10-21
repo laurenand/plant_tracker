@@ -1,0 +1,7 @@
+<h1>~My Plants~</h1>
+
+<ol>
+    <% @plants.each do |plant|%>
+    <li><a href="/plants/<%= plant.id %>"><%= plant.name %></a></li>
+    <% end %>
+</ol>
