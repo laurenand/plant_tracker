@@ -5,11 +5,11 @@ class PlantsController < ApplicationController
         erb :"/plants/index"
     end
 
-    get '/plants/new' do 
+    get '/new' do 
        erb :"plants/new"
     end
 
-    get '/plants/:id' do
+    get '/:id' do
         @plants = Plant.find(params[:id])
         erb :"plants/show"
     end
