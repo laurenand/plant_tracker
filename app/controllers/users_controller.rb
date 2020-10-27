@@ -10,7 +10,7 @@ class UsersController < ApplicationController
             session[:user_id] = @users.id
             redirect "/users/#{@users.username}"
         else
-            redirect '/signup'
+            redirect to '/signup'
         end
     end
 
@@ -27,13 +27,7 @@ class UsersController < ApplicationController
     end
 
     post '/login' do
-        @users = User.find_by(username: params[:username])
-        if @users && @users.authenticate(params[:password])
-            session[:user_id] = @users.id
-            redirect "users/#{@users.username}"
-        else
-            redirect '/error'
-        end
+        login(params[:email])
     end
 
     get '/error' do
@@ -41,8 +35,8 @@ class UsersController < ApplicationController
     end
 
     get '/logout' do
-        session.clear
-        redirect '/'
+        logout!
+        redirect to '/'
     end
 
 end

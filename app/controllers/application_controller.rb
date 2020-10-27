@@ -13,4 +13,27 @@ class ApplicationController < Sinatra::Base
     erb :home
   end
 
+  helpers do
+    
+    def logged_in?
+      !!session[:email]
+    end
+
+    def login(email)
+      #if statement assignment
+      #if user object true, assigns to local var and runs session
+      #if user object nil, redirect to login page
+      if user = User.find_by(:username => username, :email => email)
+        session[:username] = user.username
+        session[:email] = user.email
+      else
+        redirect "/login"
+    end
+
+    def logout!
+      session.clear
+    end
+
+  end
+
 end

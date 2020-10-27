@@ -8,10 +8,11 @@ class PlantsController < ApplicationController
 
     #loads the form to create a new plant
     get '/plants/new' do 
-        if logged_in?
-            erb :"plants/new"
-        else 
+        if !logged_in?
             #show error message?
+            redirect "/login"
+        else 
+            erb :"plants/new"
         end
     end
     
@@ -29,8 +30,12 @@ class PlantsController < ApplicationController
 
     #loads the form to edit plants
     get '/plants/:id/:edit' do
-        @plants = Plant.find(params[:id])
-        erb :"plants/edit"
+        if !logged_in?
+            redirect "/login"
+        else
+            @plants = Plant.find(params[:id])
+            erb :"plants/edit"
+        end
     end
 
     #updates plants name and description by id and saves, then redirects to the show page
