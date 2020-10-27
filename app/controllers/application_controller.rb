@@ -16,18 +16,20 @@ class ApplicationController < Sinatra::Base
   helpers do
     
     def logged_in?
-      !!session[:email]
+      !!session[:username]
     end
 
-    def login(email)
+    def login(username, password)
       #if statement assignment
-      #if user object true, assigns to local var and runs session
+      #if user object true, runs session
       #if user object nil, redirect to login page
-      if user = User.find_by(:username => username, :email => email)
+      user = User.find_by(:username => username)
+      if user && user.authenticate(password)
         session[:username] = user.username
-        session[:email] = user.email
+        redirect "/plants"
       else
         redirect "/login"
+      end
     end
 
     def logout!

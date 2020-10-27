@@ -5,17 +5,19 @@ class UsersController < ApplicationController
     end
 
     post '/signup' do
-        @users = User.new params[:user]
-        if @users.valid?
-            session[:user_id] = @users.id
-            redirect "/users/#{@users.username}"
-        else
-            redirect to '/signup'
+        @users = User.new
+        @users.username = params[:username]
+        @users.email = params[:email]
+        @users.password = params[:password]
+        if @users.save
+            redirect "/login"
+        else  
+            erb :"users/signup"
         end
     end
 
     get '/users/:username' do
-        @users = User.fin_by(params)
+        @users = User.find_by(params)
         if @users == nil
             redirect '/'
         end
@@ -27,7 +29,7 @@ class UsersController < ApplicationController
     end
 
     post '/login' do
-        login(params[:email])
+        login(params[:username], params[:password])
     end
 
     get '/error' do

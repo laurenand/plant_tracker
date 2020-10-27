@@ -18,8 +18,8 @@ class PlantsController < ApplicationController
     
     #creates a new plants based on the params and saves to the database
     post '/plants' do
-        @plants = Plant.create(:name => params[:name, :description => params[:description]])
-        redirect to "/plants/#{plants.id}"
+        @plants = Plant.create({:name => params[:name], :description => params[:description], :water => params[:water]})
+        redirect to "/plants/#{@plants.id}"
     end
 
     #displays a plant by id
