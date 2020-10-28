@@ -1,6 +1,6 @@
+<p><%= @plants.name %> ~ <%= @plants.description %> ~ <%= @plants.water %></p>
 
-
-<form action="/plants/:id"<%= @plants.id %>" method="post">
+<form action="/plants/:id"<%= @plants.id %> method="post">
   <input id="hidden" type="hidden" name="_method" value="delete">
   <input type="submit" value="delete">
 </form>

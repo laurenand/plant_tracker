@@ -3,7 +3,7 @@ class PlantsController < ApplicationController
     #allows the view to access all the articles in the database through the instance variable
     get '/plants' do
         @plants = Plant.all 
-        erb :"plants/index"
+        erb :'plants/index'
     end
 
     #loads the form to create a new plant
@@ -12,20 +12,20 @@ class PlantsController < ApplicationController
             #show error message?
             redirect "/login"
         else 
-            erb :"plants/new"
+            erb :'plants/new'
         end
     end
     
     #creates a new plants based on the params and saves to the database
     post '/plants' do
         @plants = Plant.create({:name => params[:name], :description => params[:description], :water => params[:water]})
-        redirect to "/plants/#{@plants.id}"
+        redirect "/plants/#{@plants.id}"
     end
 
     #displays a plant by id
     get '/plants/:id' do
         @plants = Plant.find(params[:id])
-        erb :"plants/show"
+        erb :'plants/show'
     end
 
     #loads the form to edit plants
@@ -33,8 +33,9 @@ class PlantsController < ApplicationController
         if !logged_in?
             redirect "/login"
         else
-            @plants = Plant.find(params[:id])
-            erb :"plants/edit"
+            if plant = current_user.plants.find_by(params[:id])
+            erb :'plants/edit'
+            else redirect "/plants"
         end
     end
 
@@ -44,14 +45,14 @@ class PlantsController < ApplicationController
         @plants.name = params[:name]
         @plants.description = params[:description]
         @plants.save
-        redirect to "/plants/#{@plants.id}"
+        redirect "/plants/#{@plants.id}"
     end
 
     #finds the plant in the database based on the id and deletes it, then redirects to the index page
     delete '/plants/:id' do
         @plants = Plant.find(params[:id])
         @plants.delete
-        redirect to '/plants'
+        redirect "/plants"
     end
     
 end
