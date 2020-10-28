@@ -9,7 +9,6 @@ class PlantsController < ApplicationController
     #loads the form to create a new plant
     get '/plants/new' do 
         if !logged_in?
-            #show error message?
             redirect "/login"
         else 
             erb :'plants/new'
@@ -34,8 +33,10 @@ class PlantsController < ApplicationController
             redirect "/login"
         else
             if plant = current_user.plants.find_by(params[:id])
-            erb :'plants/edit'
-            else redirect "/plants"
+                erb :'plants/edit'
+            else 
+                redirect "/plants"
+            end
         end
     end
 

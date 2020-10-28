@@ -1,12 +1,14 @@
+<%= if @plants.user == current_user %>
 <h1>Add a New Plant!<h1>
 <form action="/plants" method="POST">
     <label for="plant_name">Name:</label>
-    <input type="string" name="name_of_input" id="plant_name"/>
+    <input type="string" name="name" id="plant_name"/>
     
     <label for="plant_description">Description:</label>
-    <input type="text" name="name_of_input" id="plant_description"/>
+    <input type="text" name="description" id="plant_description"/>
     
     <label for="plant_watered">Watered On:</label>
-    <input type="string" name="name_of_input" id="plant_watered"/>
+    <input type="string" name="water" id="plant_watered"/>
     <input type="submit"/>
 </form>
+<% end %>
