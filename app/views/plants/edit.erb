@@ -1,8 +1,9 @@
 <h2>Edit your plant!</h2>
 
-<form action="/articles/<%= @article.id %>" method="post">
+<form action="/plants/<%= @plants.id %>" method="post">
   <input id="hidden" type="hidden" name="_method" value="patch">
   <input type="string" name="name">
-  <input type="string" name="description">
+  <input type="text" name="description">
+  <input type="string" name="water">
   <input type="submit" value="submit">
 </form>
