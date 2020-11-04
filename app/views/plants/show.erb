@@ -2,7 +2,7 @@
 
 <a href="/plants/<%=@plants.id%>/edit">Edit</a>
 
-<form action="/plants/<%= @plants.id %>" method="post">
-  <input id="hidden" type="hidden" name="_method" value="delete">
+<form action="/plants/<%= @plants.id %>/delete" method="post">
+  <input id="hidden" type="hidden" name="_method" value="DELETE">
   <input type="submit" value="delete">
 </form>

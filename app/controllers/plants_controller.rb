@@ -22,7 +22,7 @@ class PlantsController < ApplicationController
     #creates a new plants based on the params and saves to the database
     post '/plants' do
         @plants = Plant.create(:name => params[:name], :description => params[:description], :water => params[:water])
-        @plants.user = current_user
+        @plants.user_id = current_user.id
         @plants.save
         redirect "/plants/#{@plants.id}"
     end
@@ -38,18 +38,13 @@ class PlantsController < ApplicationController
         if !logged_in?
             redirect "/login"
         else
-            #binding.pry
-            plant = Plant.find_by(params[:id])
-            if plant.user == current_user #.plants.find_by(params[:id])
-                erb :'plants/edit'
-            else 
-                redirect "/plants"
-            end
+            edit_by_user
         end
     end
 
     #updates plants name and description by id and saves, then redirects to the show page
     patch '/plants/:id' do
+        #binding.pry
         @plants = Plant.find(params[:id])
         @plants.name = params[:name]
         @plants.description = params[:description]
@@ -59,10 +54,12 @@ class PlantsController < ApplicationController
     end
 
     #finds the plant in the database based on the id and deletes it, then redirects to the index page
-    delete '/plants/:id' do
-        @plants = Plant.find(params[:id])
-        @plants.delete
-        redirect "/plants"
+    delete '/plants/:id/delete' do
+      plant = Plant.find(params[:id])
+      if plant.user == current_user 
+          plant.delete
+      end
+      redirect "/plants"
     end
     
 end
