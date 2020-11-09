@@ -1,12 +1,9 @@
 class UsersController < ApplicationController
     
-    #loads signup form
     get '/signup' do
         erb :'/users/signup'
     end
 
-    #creates new login based on params and redirects to login page if gets saved
-    #loads form again if it does not save
     post '/signup' do
         @users = User.new
         @users.username = params[:username]
