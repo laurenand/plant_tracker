@@ -2,19 +2,19 @@ class PlantsController < ApplicationController
 
     #allows the view to access all the articles in the database through the instance variable
     get '/plants' do
-        if logged_in?
-            @plants = Plant.all 
+        if logged_in? 
+            @plants = Plant.all
             erb :'plants/index'
-        else 
+        else  
             redirect "/"
         end
     end
 
     #loads the form to create a new plant
-    get '/plants/new' do 
+    get '/plants/new' do
         if !logged_in?
             redirect "/login"
-        else 
+        else  
             erb :'plants/new'
         end
     end
@@ -44,8 +44,9 @@ class PlantsController < ApplicationController
 
     #updates plants name and description by id and saves, then redirects to the show page
     patch '/plants/:id' do
-        #binding.pry
+        
         @plants = Plant.find(params[:id])
+        #binding.pry
         @plants.name = params[:name]
         @plants.description = params[:description]
         @plants.water = params[:water]

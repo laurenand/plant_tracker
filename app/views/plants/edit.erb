@@ -1,6 +1,6 @@
 <h2>Edit your plant!</h2>
 
-<form action="/plants/:id" method="post">
+<form action="/plants/<%= @plant.id %>" method="post">
   <input id="hidden" type="hidden" name="_method" value="patch">
   <p>Name: <input type="string" name="name"></p>
   <p>Description: <input type="text" name="description"></p>

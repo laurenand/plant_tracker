@@ -41,8 +41,8 @@ class ApplicationController < Sinatra::Base
     end
 
     def edit_by_user
-      plant = Plant.find(params[:id])
-      if plant.user == current_user 
+      @plant = Plant.find(params[:id])
+      if @plant.user == current_user 
           erb :'plants/edit'
       else 
           redirect "/plants"

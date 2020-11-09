@@ -35,10 +35,6 @@ class UsersController < ApplicationController
         login(params[:username], params[:password])
     end
 
-    #get '/error' do
-        #erb :'users/error'
-    #end
-
     get '/logout' do
         logout!
         redirect "/"
