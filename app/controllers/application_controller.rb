@@ -24,9 +24,6 @@ class ApplicationController < Sinatra::Base
     end
 
     def login(username, password)
-      #if statement assignment
-      #if user object true, runs session
-      #if user object nil, redirect to login page
       user = User.find_by(:username => username)
       if user && user.authenticate(password)
         session[:username] = user.username

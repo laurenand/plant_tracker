@@ -18,9 +18,10 @@ class PlantsController < ApplicationController
     end
     
     post '/plants' do
-        @plants = Plant.create(:name => params[:name], :description => params[:description], :water => params[:water])
-        @plants.user_id = current_user.id
-        @plants.save
+        @plant = current_user.plants.create(:name => params[:name], :description => params[:description], :water => params[:water])
+       # @plants = Plant.create(:name => params[:name], :description => params[:description], :water => params[:water])
+       # @plants.user_id = current_user.id
+      #  @plants.save
         redirect "/plants/#{@plants.id}"
     end
 
